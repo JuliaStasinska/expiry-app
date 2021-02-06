@@ -9,6 +9,7 @@ drop table if exists food_templates;
 create table food_templates(
     food_id int primary key auto_increment,
     name varchar(100) not null,
+    category varchar(100),
     days_stored_room_temperature int,
     days_stored_in_fridge int,
     days_stored_in_freezer int

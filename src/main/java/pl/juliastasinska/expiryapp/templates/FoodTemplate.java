@@ -1,6 +1,6 @@
 package pl.juliastasinska.expiryapp.templates;
 
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
 import pl.juliastasinska.expiryapp.templates.dto.FoodTemplateDto;
 
 import javax.persistence.*;
@@ -15,7 +15,8 @@ class FoodTemplate {
     private int foodId;
     @NotNull
     private String name;
-    @Transient
+    @Enumerated(EnumType.STRING)
+    @NotNull
     private FoodCategory category;
     private int daysStoredRoomTemperature;
     private int daysStoredInFridge;
@@ -26,7 +27,7 @@ class FoodTemplate {
 
     FoodTemplate(String name, String foodCategory, int daysStoredRoomTemperature, int daysStoredInFridge, int daysStoredInFreezer) {
         this.name = name;
-        this.category = FoodCategory.valueOf(foodCategory);
+        this.category = foodCategory!=null ? FoodCategory.valueOf(foodCategory) : FoodCategory.GENERIC;
         this.daysStoredRoomTemperature = daysStoredRoomTemperature;
         this.daysStoredInFridge = daysStoredInFridge;
         this.daysStoredInFreezer = daysStoredInFreezer;
@@ -53,6 +54,6 @@ class FoodTemplate {
     }
 
     FoodTemplateDto toDto(){
-        return new FoodTemplateDto(foodId, name, null, daysStoredRoomTemperature, daysStoredInFridge, daysStoredInFreezer);
+        return new FoodTemplateDto(foodId, name, category.toString(), daysStoredRoomTemperature, daysStoredInFridge, daysStoredInFreezer);
     }
 }

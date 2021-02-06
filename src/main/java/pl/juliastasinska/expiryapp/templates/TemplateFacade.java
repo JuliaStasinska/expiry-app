@@ -115,6 +115,7 @@ public class TemplateFacade {
 
     FoodTemplateDto updateFood(FoodTemplateDto source){
         return FTRepo.save(FTRepo.findById(source.getId()).map(existingFood-> {
+            existingFood.setCategory(source.getCategory() != null ? FoodCategory.valueOf(source.getCategory()) : FoodCategory.GENERIC);
             existingFood.setDaysStoredInFridge(source.getDaysStoredInFridge());
             existingFood.setDaysStoredInFreezer(source.getDaysStoredInFreezer());
             existingFood.setDaysStoredRoomTemperature(source.getDaysStoredRoomTemperature());
