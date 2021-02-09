@@ -15,7 +15,7 @@ create table food(
     my_food_id int primary key auto_increment,
     description varchar(100) not null,
     expiry_date date,
-    use_before date,
+    use_by date,
     storage_status varchar(100),
     usage_status varchar(100),
     food_id int,

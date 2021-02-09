@@ -11,28 +11,50 @@ public class FoodDto {
     private int myFoodId;
     private String description;
     private LocalDate expiryDate;
-    private LocalDate useBefore;
-    @Enumerated(EnumType.STRING)
+    private LocalDate useBy;
     private String storageStatus;
-    @Enumerated(EnumType.STRING)
     private String usageStatus;
 
-    FoodDto() {
+    public FoodDto() {
     }
 
-    FoodDto(int myFoodId, String description, LocalDate expiryDate) {
+    public FoodDto(int myFoodId, String description, LocalDate expiryDate) {
         this.myFoodId = myFoodId;
         this.description = description;
         this.expiryDate = expiryDate;
     }
 
-    FoodDto(int myFoodId, String description, LocalDate expiryDate, LocalDate useBefore, String storageStatus, String usageStatus) {
+    public FoodDto(int myFoodId, String description, LocalDate expiryDate, LocalDate useBy, String storageStatus, String usageStatus) {
         this.myFoodId = myFoodId;
         this.description = description;
         this.expiryDate = expiryDate;
-        this.useBefore = useBefore;
+        this.useBy = useBy;
         this.storageStatus = storageStatus;
         this.usageStatus = usageStatus;
+    }
+
+    public int getId() {
+        return myFoodId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getExpiryDate() {
+        return expiryDate;
+    }
+
+    public LocalDate getUseBy() {
+        return useBy;
+    }
+
+    public String getStorageStatus() {
+        return storageStatus;
+    }
+
+    public String getUsageStatus() {
+        return usageStatus;
     }
 
 }

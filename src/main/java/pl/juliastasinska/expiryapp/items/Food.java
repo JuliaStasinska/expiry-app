@@ -1,21 +1,21 @@
 package pl.juliastasinska.expiryapp.items;
 
 import com.sun.istack.NotNull;
-import pl.juliastasinska.expiryapp.templates.query.FoodTemplateQuery;
+import pl.juliastasinska.expiryapp.items.dto.FoodDto;
+import pl.juliastasinska.expiryapp.templates.dto.FoodTemplateDto;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "food")
 class Food {
-    enum StorageStatus{
-        CLOSED,OPENED,FROZEN,COOKED
+    public enum UsageStatus {
+        WAITING, EATEN, BINNED
     }
 
-    enum UsageStatus{
-        WAITING,EATEN,BINNED
+    public enum StorageStatus {
+        CLOSED, OPENED, FROZEN, COOKED
     }
 
     @Transient
@@ -32,9 +32,9 @@ class Food {
     private String description;
     @ManyToOne
     @JoinColumn(name = "food_id")
-    private FoodTemplateQuery food;
+    private FoodTemplateDto foodTemplate;
     private LocalDate expiryDate;
-    private LocalDate useBefore;
+    private LocalDate useBy;
     @Enumerated(EnumType.STRING)
     private StorageStatus storageStatus;
     @Enumerated(EnumType.STRING)
@@ -43,43 +43,48 @@ class Food {
     Food() {
     }
 
-    Food(String description, FoodTemplateQuery food, LocalDate expiryDate) {
+    Food(String description, FoodTemplateDto foodTemplate, LocalDate expiryDate) {
         this.description = description;
-        this.food = food;
+        this.foodTemplate = foodTemplate;
         this.expiryDate = expiryDate;
-        this.useBefore = expiryDate;
+        this.useBy = expiryDate;
         this.storageStatus = StorageStatus.CLOSED;
         this.usageStatus = UsageStatus.WAITING;
     }
 
     void open(LocalDate openingDate){
-        this.useBefore = openingDate.plusDays(food.getDaysStoredInFridge());
+        this.useBy = openingDate.plusDays(foodTemplate.getDaysStoredInFridge());
         this.storageStatus = StorageStatus.OPENED;
     }
 
     void cook(LocalDate cookingDate){
-        this.useBefore = cookingDate.plusDays(DEF_FRIDGE_STORAGE);
+        this.useBy = cookingDate.plusDays(DEF_FRIDGE_STORAGE);
         this.storageStatus = StorageStatus.COOKED;
     }
 
     void freeze(LocalDate freezingDate){
-        this.useBefore = freezingDate.plusDays(DEF_FROZEN_STORAGE);
+        this.useBy = freezingDate.plusDays(DEF_FROZEN_STORAGE);
         this.storageStatus = StorageStatus.FROZEN;
     }
 
-    void defrost(LocalDate defrostingDate){
-        this.useBefore = defrostingDate.plusDays(DEF_DEFROST_STORAGE);
+    void thaw(LocalDate defrostingDate){
+        this.useBy = defrostingDate.plusDays(DEF_DEFROST_STORAGE);
     }
 
     void eat(){
-        this.useBefore = null;
+        this.useBy = null;
         this.storageStatus = null;
         this.usageStatus = UsageStatus.EATEN;
     }
 
     void bin(){
-        this.useBefore = null;
+        this.useBy = null;
         this.storageStatus = null;
         this.usageStatus = UsageStatus.BINNED;
     }
+
+    FoodDto toDto(){
+        return new FoodDto(myFoodId, description, expiryDate, useBy, storageStatus.toString(), usageStatus.toString());
+    }
+
 }

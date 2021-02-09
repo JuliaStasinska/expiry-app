@@ -2,8 +2,14 @@ package pl.juliastasinska.expiryapp.templates.dto;
 
 import pl.juliastasinska.expiryapp.templates.FoodCategory;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "food_templates")
 public class FoodTemplateDto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int foodId;
     private String name;
     private String category;
