@@ -15,18 +15,11 @@ import static java.util.stream.Collectors.toList;
 public class DeviceFacade {
 
     private final DeviceRepository DeviceRepo;
-    private final FoodRepository FoodRepo;
-    private final MedicineRepository MedicineRepo;
-    private final SubscriptionRepository SubscriptionRepo;
     private final TemplateFacade templateFacade;
 
-    DeviceFacade(final DeviceRepository DeviceRepo, final FoodRepository FoodRepo,
-                 final MedicineRepository MedicineRepo, final SubscriptionRepository SubscriptionRepo,
+    DeviceFacade(final DeviceRepository DeviceRepo,
                  final TemplateFacade templateFacade) {
         this.DeviceRepo = DeviceRepo;
-        this.FoodRepo = FoodRepo;
-        this.MedicineRepo = MedicineRepo;
-        this.SubscriptionRepo = SubscriptionRepo;
         this.templateFacade = templateFacade;
     }
 
