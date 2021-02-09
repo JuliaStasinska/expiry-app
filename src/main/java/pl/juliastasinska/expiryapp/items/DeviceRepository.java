@@ -12,6 +12,8 @@ interface DeviceRepository extends JpaRepository<Device, Integer> {
 
     List<Device> findByTimeToClean(LocalDate date);
 
+    List<Device> findByTimeToChangePart(LocalDate date);
+
     List<Device> findByDescriptionContaining(String nameFragment);
 
     Optional<Device> findById(int id);

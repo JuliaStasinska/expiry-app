@@ -12,7 +12,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Service
-public class ItemFacade {
+public class DeviceFacade {
 
     private final DeviceRepository DeviceRepo;
     private final FoodRepository FoodRepo;
@@ -20,9 +20,9 @@ public class ItemFacade {
     private final SubscriptionRepository SubscriptionRepo;
     private final TemplateFacade templateFacade;
 
-    ItemFacade(final DeviceRepository DeviceRepo, final FoodRepository FoodRepo,
-               final MedicineRepository MedicineRepo, final SubscriptionRepository SubscriptionRepo,
-               final TemplateFacade templateFacade) {
+    DeviceFacade(final DeviceRepository DeviceRepo, final FoodRepository FoodRepo,
+                 final MedicineRepository MedicineRepo, final SubscriptionRepository SubscriptionRepo,
+                 final TemplateFacade templateFacade) {
         this.DeviceRepo = DeviceRepo;
         this.FoodRepo = FoodRepo;
         this.MedicineRepo = MedicineRepo;
@@ -32,6 +32,18 @@ public class ItemFacade {
 
     List<DeviceDto> listDevices(){
         return DeviceRepo.findAll().stream()
+                .map(Device::toDto)
+                .collect(toList());
+    }
+
+    List<DeviceDto> listDevicesWithDescription(String nameFragment){
+        return DeviceRepo.findByDescriptionContaining(nameFragment).stream()
+                .map(Device::toDto)
+                .collect(toList());
+    }
+
+    List<DeviceDto> listDevicesToClean(int days){
+        return DeviceRepo.findByTimeToClean(LocalDate.now().plusDays(days)).stream()
                 .map(Device::toDto)
                 .collect(toList());
     }
