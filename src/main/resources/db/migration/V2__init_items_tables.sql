@@ -7,7 +7,7 @@ create table devices(
     time_to_clean date,
     cleaned bit,
     part_changed bit,
-    device_id int not null,
+    device_id int,
     foreign key (device_id) references device_templates (device_id)
 );
 drop table if exists food;
@@ -18,7 +18,7 @@ create table food(
     use_before date,
     storage_status varchar(100),
     usage_status varchar(100),
-    food_id int not null,
+    food_id int,
     foreign key (food_id) references food_templates (food_id)
 );
 drop table if exists medicines;
@@ -29,7 +29,7 @@ create table medicines(
     use_before date,
     opened bit,
     status varchar(100),
-    medicine_id int not null,
+    medicine_id int,
     foreign key (medicine_id) references medicine_templates (medicine_id)
 );
 drop table if exists subscriptions;

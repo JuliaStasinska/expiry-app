@@ -1,6 +1,8 @@
 package pl.juliastasinska.expiryapp.items;
 
 import com.sun.istack.NotNull;
+import pl.juliastasinska.expiryapp.items.dto.DeviceDto;
+import pl.juliastasinska.expiryapp.templates.dto.DeviceTemplateDto;
 import pl.juliastasinska.expiryapp.templates.query.DeviceTemplateQuery;
 
 import javax.persistence.*;
@@ -18,7 +20,7 @@ class Device {
     private String description;
     @ManyToOne
     @JoinColumn(name = "device_id")
-    private DeviceTemplateQuery device;
+    private DeviceTemplateDto deviceTemplate;
     private LocalDate buyingDate;
     private LocalDate timeToChangePart;
     private LocalDate timeToClean;
@@ -28,24 +30,28 @@ class Device {
     Device() {
     }
 
-    Device(String description, DeviceTemplateQuery device, LocalDate buyingDate) {
+    Device(String description, DeviceTemplateDto deviceTemplate, LocalDate buyingDate) {
         this.description = description;
-        this.device = device;
+        this.deviceTemplate = deviceTemplate;
         this.buyingDate = buyingDate;
-        this.timeToChangePart = buyingDate.plusDays(device.getDaysBetweenPartExchange());
-        this.timeToClean = buyingDate.plusDays(device.getDaysBetweenCleanings());
+        this.timeToChangePart = buyingDate.plusDays(deviceTemplate!=null ? deviceTemplate.getDaysBetweenPartExchange():0);
+        this.timeToClean = buyingDate.plusDays(deviceTemplate!=null ? deviceTemplate.getDaysBetweenCleanings():0);
         this.partChanged = true;
         this.cleaned = true;
     }
 
     void cleanDevice(LocalDate cleaningDate){
-        this.timeToClean = cleaningDate.plusDays(this.device.getDaysBetweenCleanings());
+        this.timeToClean = cleaningDate.plusDays(this.deviceTemplate.getDaysBetweenCleanings());
         this.cleaned = true;
     }
 
     void changePart(LocalDate serviceTime){
-        this.timeToChangePart = serviceTime.plusDays(this.device.getDaysBetweenPartExchange());
+        this.timeToChangePart = serviceTime.plusDays(this.deviceTemplate.getDaysBetweenPartExchange());
         this.partChanged = true;
+    }
+
+    DeviceDto toDto(){
+        return new DeviceDto(myDeviceId, description, buyingDate, timeToChangePart, timeToClean, partChanged, cleaned);
     }
 
 }

@@ -1,9 +1,11 @@
 package pl.juliastasinska.expiryapp.templates;
 
 import com.sun.istack.NotNull;
+import pl.juliastasinska.expiryapp.items.dto.DeviceDto;
 import pl.juliastasinska.expiryapp.templates.dto.DeviceTemplateDto;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "device_templates")

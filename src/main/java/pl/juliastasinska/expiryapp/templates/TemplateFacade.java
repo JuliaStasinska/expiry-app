@@ -50,19 +50,19 @@ public class TemplateFacade {
                 .collect(Collectors.toList());
     }
 
-    Optional<DeviceTemplateDto> readDevice(int id){
+    public Optional<DeviceTemplateDto> readDevice(int id){
         return DTRepo.findById(id).map(DeviceTemplate::toDto);
     }
 
-    Optional<FoodTemplateDto> readFood(int id){
+    public Optional<FoodTemplateDto> readFood(int id){
         return FTRepo.findById(id).map(FoodTemplate::toDto);
     }
 
-    Optional<MedicineTemplateDto> readMedicine(int id){
+    public Optional<MedicineTemplateDto> readMedicine(int id){
         return MTRepo.findById(id).map(MedicineTemplate::toDto);
     }
 
-    Optional<SubscriptionTemplateDto> readSubscription(int id){
+    public Optional<SubscriptionTemplateDto> readSubscription(int id){
         return STRepo.findById(id).map(SubscriptionTemplate::toDto);
     }
 
@@ -105,8 +105,8 @@ public class TemplateFacade {
         ).toDto();
     }
 
-    DeviceTemplateDto updateDevice(DeviceTemplateDto source){
-        return DTRepo.save(DTRepo.findById(source.getId()).map(existingDevice-> {
+    DeviceTemplateDto updateDevice(DeviceTemplateDto source, int id){
+        return DTRepo.save(DTRepo.findById(id).map(existingDevice-> {
             existingDevice.setDaysBetweenCleanings(source.getDaysBetweenCleanings());
             existingDevice.setDaysBetweenPartExchange(source.getDaysBetweenPartExchange());
             return existingDevice;

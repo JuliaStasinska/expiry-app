@@ -95,7 +95,7 @@ class TemplateController {
         if(id != toUpdate.getId() && toUpdate.getId() != 0){
             throw new IllegalStateException("Path id different than body id: "+ id + "!=" + toUpdate.getId());
         }
-        templateFacade.updateDevice(toUpdate);
+        templateFacade.updateDevice(toUpdate,id);
         return ResponseEntity.noContent().build();
     }
 
