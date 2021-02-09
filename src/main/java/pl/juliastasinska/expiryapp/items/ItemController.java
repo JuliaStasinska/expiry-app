@@ -21,9 +21,19 @@ class ItemController {
         this.itemFacade = itemFacade;
     }
 
-    @GetMapping("/devices")
+    @GetMapping(path = "/devices")
     List<DeviceDto> listDevices(){
         return itemFacade.listDevices();
+    }
+
+    @GetMapping(path = "/devices", params = "description")
+    List<DeviceDto> listDevicesWithDescription(@RequestParam String name) {
+        return itemFacade.listDevicesWithDescription(name);
+    }
+
+    @GetMapping(path = "/devices", params = "clean")
+    List<DeviceDto> listDevicesToClean(@RequestParam int days) {
+        return itemFacade.listDevicesToClean(days);
     }
 
 /*    todo: finish other item types

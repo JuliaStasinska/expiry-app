@@ -36,6 +36,18 @@ public class ItemFacade {
                 .collect(toList());
     }
 
+    List<DeviceDto> listDevicesWithDescription(String nameFragment){
+        return DeviceRepo.findByDescriptionContaining(nameFragment).stream()
+                .map(Device::toDto)
+                .collect(toList());
+    }
+
+    List<DeviceDto> listDevicesToClean(int days){
+        return DeviceRepo.findByTimeToClean(LocalDate.now().plusDays(days)).stream()
+                .map(Device::toDto)
+                .collect(toList());
+    }
+
     DeviceDto saveDevice(DeviceDto source, int deviceTemplateId){
         return DeviceRepo.save(new Device(source.getDescription(), templateFacade.readDevice(deviceTemplateId).get(), source.getBuyingDate())).toDto();
     }
