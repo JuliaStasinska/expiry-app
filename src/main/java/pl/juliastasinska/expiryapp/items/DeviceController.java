@@ -50,12 +50,11 @@ class DeviceController {
         return ResponseEntity.noContent().build();
     }
 
-    //TODO: add possibility of deleting
-    /*@DeleteMapping("/{id}")
-    ResponseEntity<DeviceDto> delete(@PathVariable int id){
-        Facade.deleteDevice(id);
+    @DeleteMapping("/{id}")
+    ResponseEntity<DeviceDto> deleteDevice(@PathVariable int id) {
+        deviceFacade.deleteDevice(id);
         return ResponseEntity.noContent().build();
-    }*/
+    }
 
     
 

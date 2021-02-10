@@ -20,4 +20,5 @@ interface DeviceRepository extends JpaRepository<Device, Integer> {
 
     <S extends Device> S save(S source);
 
+    void deleteById(int id);
 }

@@ -61,4 +61,8 @@ public class DeviceFacade {
                 .toDto();
     }
 
+    void deleteDevice(int myDeviceId){
+        DeviceRepo.deleteById(myDeviceId);
+    }
+
 }
