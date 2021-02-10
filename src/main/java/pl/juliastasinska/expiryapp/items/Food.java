@@ -15,7 +15,7 @@ class Food {
     }
 
     public enum StorageStatus {
-        CLOSED, OPENED, FROZEN, COOKED
+        CLOSED, OPENED, FROZEN, THAWED, COOKED
     }
 
     @Transient
@@ -53,38 +53,64 @@ class Food {
     }
 
     void open(LocalDate openingDate){
+        if(UsageStatus.EATEN==usageStatus || UsageStatus.BINNED==usageStatus){
+            throw new IllegalStateException("Food is not available, it has been eaten or binned.");
+        }
         this.useBy = openingDate.plusDays(foodTemplate.getDaysStoredInFridge());
         this.storageStatus = StorageStatus.OPENED;
     }
 
     void cook(LocalDate cookingDate){
-        this.useBy = cookingDate.plusDays(DEF_FRIDGE_STORAGE);
+        if(UsageStatus.EATEN==usageStatus || UsageStatus.BINNED==usageStatus){
+            throw new IllegalStateException("Food is not available, it has been eaten or binned.");
+        }
+        this.useBy = cookingDate.plusDays(foodTemplate.getDaysStoredInFridge());
         this.storageStatus = StorageStatus.COOKED;
     }
 
     void freeze(LocalDate freezingDate){
-        this.useBy = freezingDate.plusDays(DEF_FROZEN_STORAGE);
+        if(UsageStatus.EATEN==usageStatus || UsageStatus.BINNED==usageStatus){
+            throw new IllegalStateException("Food is not available, it has been eaten or binned.");
+        }
+        if(StorageStatus.FROZEN==storageStatus){
+            throw new IllegalStateException("Food is already frozen");
+        }
+        System.out.println("days stored in freezer: "+foodTemplate.getDaysStoredInFreezer());
+        this.useBy = freezingDate.plusDays(foodTemplate.getDaysStoredInFreezer());
         this.storageStatus = StorageStatus.FROZEN;
     }
 
     void thaw(LocalDate defrostingDate){
+        if(UsageStatus.EATEN==usageStatus || UsageStatus.BINNED==usageStatus){
+            throw new IllegalStateException("Food is not available, it has been eaten or binned.");
+        }
+        if(StorageStatus.FROZEN!=storageStatus){
+            throw new IllegalStateException("Food is not frozen, it cannot be thawed");
+        }
         this.useBy = defrostingDate.plusDays(DEF_DEFROST_STORAGE);
+        this.storageStatus=StorageStatus.THAWED;
     }
 
     void eat(){
+        if(UsageStatus.EATEN==usageStatus || UsageStatus.BINNED==usageStatus){
+            throw new IllegalStateException("Food is not available, it has been eaten or binned.");
+        }
         this.useBy = null;
         this.storageStatus = null;
         this.usageStatus = UsageStatus.EATEN;
     }
 
     void bin(){
+        if(UsageStatus.EATEN==usageStatus || UsageStatus.BINNED==usageStatus){
+            throw new IllegalStateException("Food is not available, it has been eaten or binned.");
+        }
         this.useBy = null;
         this.storageStatus = null;
         this.usageStatus = UsageStatus.BINNED;
     }
 
     FoodDto toDto(){
-        return new FoodDto(myFoodId, description, expiryDate, useBy, storageStatus.toString(), usageStatus.toString());
+        return new FoodDto(myFoodId, description, expiryDate, useBy, storageStatus!=null?storageStatus.toString():null, usageStatus!=null?usageStatus.toString():null);
     }
 
 }

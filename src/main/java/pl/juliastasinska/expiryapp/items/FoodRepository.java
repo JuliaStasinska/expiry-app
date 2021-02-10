@@ -22,4 +22,6 @@ interface FoodRepository extends JpaRepository<Food, Integer> {
     Optional<Food> findById(int id);
 
     <S extends Food> S save(S source);
+
+    void deleteById(int id);
 }

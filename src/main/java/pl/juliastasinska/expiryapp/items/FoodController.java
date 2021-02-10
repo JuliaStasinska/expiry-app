@@ -32,8 +32,8 @@ class FoodController {
     }
 
     @PostMapping
-    ResponseEntity<FoodDto> createFood(@RequestBody FoodDto toCreate, @RequestParam int FoodTemplateId){
-        FoodDto result = foodFacade.saveFood(toCreate, FoodTemplateId);
+    ResponseEntity<FoodDto> createFood(@RequestBody FoodDto toCreate, @RequestParam int foodTemplateId){
+        FoodDto result = foodFacade.saveFood(toCreate, foodTemplateId);
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
@@ -41,6 +41,12 @@ class FoodController {
     @PutMapping(path = "/{id}", params = "open")
     ResponseEntity<FoodDto> openFood(@PathVariable int id){
         foodFacade.openFood(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(path = "/{id}", params = "cook")
+    ResponseEntity<FoodDto> cookFood(@PathVariable int id){
+        foodFacade.cookFood(id);
         return ResponseEntity.noContent().build();
     }
 
@@ -68,13 +74,11 @@ class FoodController {
         return ResponseEntity.noContent().build();
     }
 
-    //TODO: add possibility of deleting
-    /*@DeleteMapping("/{id}")
-    ResponseEntity<FoodDto> delete(@PathVariable int id){
-        Facade.deleteFood(id);
+    @DeleteMapping("/{id}")
+    ResponseEntity<FoodDto> deleteFood(@PathVariable int id) {
+        foodFacade.deleteFood(id);
         return ResponseEntity.noContent().build();
-    }*/
-
+    }
     
 
 }

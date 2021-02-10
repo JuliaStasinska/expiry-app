@@ -52,6 +52,14 @@ public class FoodFacade {
                 .toDto();
     }
 
+    FoodDto cookFood(int myFoodId){
+        return FoodRepo.save(FoodRepo.findById(myFoodId).map(existingFood -> {
+            existingFood.cook(LocalDate.now());
+            return existingFood;
+        }).orElseThrow(()->new IllegalArgumentException("Food with a given id not found")))
+                .toDto();
+    }
+
     FoodDto freezeFood(int myFoodId){
         return FoodRepo.save(FoodRepo.findById(myFoodId).map(existingFood -> {
             existingFood.freeze(LocalDate.now());
@@ -82,6 +90,10 @@ public class FoodFacade {
             return existingFood;
         }).orElseThrow(()->new IllegalArgumentException("Food with a given id not found")))
                 .toDto();
+    }
+
+    void deleteFood(int myFoodId){
+        FoodRepo.deleteById(myFoodId);
     }
 
 

@@ -107,6 +107,7 @@ public class TemplateFacade {
 
     DeviceTemplateDto updateDevice(DeviceTemplateDto source, int id){
         return DTRepo.save(DTRepo.findById(id).map(existingDevice-> {
+            existingDevice.setName(source.getName());
             existingDevice.setDaysBetweenCleanings(source.getDaysBetweenCleanings());
             existingDevice.setDaysBetweenPartExchange(source.getDaysBetweenPartExchange());
             return existingDevice;
@@ -115,6 +116,7 @@ public class TemplateFacade {
 
     FoodTemplateDto updateFood(FoodTemplateDto source){
         return FTRepo.save(FTRepo.findById(source.getId()).map(existingFood-> {
+            existingFood.setName(source.getName());
             existingFood.setCategory(source.getCategory() != null ? FoodCategory.valueOf(source.getCategory()) : FoodCategory.GENERIC);
             existingFood.setDaysStoredInFridge(source.getDaysStoredInFridge());
             existingFood.setDaysStoredInFreezer(source.getDaysStoredInFreezer());
@@ -125,6 +127,7 @@ public class TemplateFacade {
 
     MedicineTemplateDto updateMedicine(MedicineTemplateDto source){
         return MTRepo.save(MTRepo.findById(source.getId()).map(existingMedicine-> {
+            existingMedicine.setName(source.getName());
             existingMedicine.setDaysStored(source.getDaysStored());
             return existingMedicine;
         }).orElseThrow(()->new IllegalArgumentException("Medicine template with a given id not found"))).toDto();
@@ -132,6 +135,7 @@ public class TemplateFacade {
 
     SubscriptionTemplateDto updateSubscription(SubscriptionTemplateDto source){
         return STRepo.save(STRepo.findById(source.getId()).map(existingSubscription-> {
+            existingSubscription.setName(source.getName());
             existingSubscription.setDaysTrialPeriod(source.getDaysTrialPeriod());
             existingSubscription.setMaxDaysOnHold(source.getMaxDaysOnHold());
             existingSubscription.setDaysBetweenRenewals(source.getDaysBetweenRenewals());

@@ -17,6 +17,9 @@ public class FoodTemplateDto {
     private int daysStoredInFridge;
     private int daysStoredInFreezer;
 
+    public FoodTemplateDto(){
+    }
+
     public FoodTemplateDto(int foodId, String name, String category, int daysStoredRoomTemperature, int daysStoredInFridge, int daysStoredInFreezer) {
         this.foodId = foodId;
         this.name = name;

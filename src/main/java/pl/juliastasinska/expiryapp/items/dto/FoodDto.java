@@ -18,12 +18,6 @@ public class FoodDto {
     public FoodDto() {
     }
 
-    public FoodDto(int myFoodId, String description, LocalDate expiryDate) {
-        this.myFoodId = myFoodId;
-        this.description = description;
-        this.expiryDate = expiryDate;
-    }
-
     public FoodDto(int myFoodId, String description, LocalDate expiryDate, LocalDate useBy, String storageStatus, String usageStatus) {
         this.myFoodId = myFoodId;
         this.description = description;
@@ -31,6 +25,10 @@ public class FoodDto {
         this.useBy = useBy;
         this.storageStatus = storageStatus;
         this.usageStatus = usageStatus;
+    }
+
+    public FoodDto(int myFoodId, String description, LocalDate expiryDate) {
+        this(myFoodId,description,expiryDate,null,null,null);
     }
 
     public int getId() {
