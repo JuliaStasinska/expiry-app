@@ -1,6 +1,7 @@
 package pl.juliastasinska.expiryapp.items;
 
 import com.sun.istack.NotNull;
+import pl.juliastasinska.expiryapp.templates.dto.MedicineTemplateDto;
 import pl.juliastasinska.expiryapp.templates.query.MedicineTemplateQuery;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ class Medicine {
     private String description;
     @ManyToOne
     @JoinColumn(name = "medicine_id")
-    private MedicineTemplateQuery medicine;
+    private MedicineTemplateDto medicineTemplate;
     private LocalDate expiryDate;
     private LocalDate useBefore;
     private Boolean opened;
@@ -31,9 +32,9 @@ class Medicine {
     Medicine() {
     }
 
-    Medicine(String description, MedicineTemplateQuery medicine, LocalDate expiryDate) {
+    Medicine(String description, MedicineTemplateDto medicineTemplate, LocalDate expiryDate) {
         this.description = description;
-        this.medicine = medicine;
+        this.medicineTemplate = medicineTemplate;
         this.expiryDate = expiryDate;
         this.useBefore = expiryDate;
         this.opened = false;
@@ -42,7 +43,7 @@ class Medicine {
 
     void open(LocalDate openDate){
         this.opened = true;
-        useBefore = openDate.plusDays(medicine.getDaysStored());
+        useBefore = openDate.plusDays(medicineTemplate.getDaysStored());
     }
 
     void finish(){

@@ -1,7 +1,13 @@
 package pl.juliastasinska.expiryapp.templates.dto;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "subscription_templates")
 public class SubscriptionTemplateDto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int subscriptionId;
     private String name;
     private int daysTrialPeriod;

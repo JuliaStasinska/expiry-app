@@ -1,6 +1,7 @@
 package pl.juliastasinska.expiryapp.items;
 
 import com.sun.istack.NotNull;
+import pl.juliastasinska.expiryapp.templates.dto.SubscriptionTemplateDto;
 import pl.juliastasinska.expiryapp.templates.query.SubscriptionTemplateQuery;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ class Subscription {
     private String description;
     @ManyToOne
     @JoinColumn(name = "subscription_id")
-    private SubscriptionTemplateQuery subscription;
+    private SubscriptionTemplateDto subscriptionTemplate;
     private LocalDate renewsOn;
     @Enumerated(EnumType.STRING)
     private SubscriptionStatus status;
@@ -29,27 +30,27 @@ class Subscription {
     Subscription() {
     }
 
-    Subscription(String description, SubscriptionTemplateQuery subscription, LocalDate renewsOn) {
+    Subscription(String description, SubscriptionTemplateDto subscriptionTemplate, LocalDate renewsOn) {
         this.description = description;
-        this.subscription = subscription;
+        this.subscriptionTemplate = subscriptionTemplate;
         this.renewsOn = renewsOn;
         this.status = SubscriptionStatus.REGULAR;
     }
 
     void beginTrial(LocalDate startDate){
         this.status = SubscriptionStatus.TRIAL;
-        renewsOn = startDate.plusDays(this.subscription.getDaysTrialPeriod());
+        renewsOn = startDate.plusDays(this.subscriptionTemplate.getDaysTrialPeriod());
     }
 
     void continueSubscription(LocalDate startDate){
         this.status = SubscriptionStatus.REGULAR;
-        renewsOn = startDate.plusDays(this.subscription.getDaysBetweenRenewals());
+        renewsOn = startDate.plusDays(this.subscriptionTemplate.getDaysBetweenRenewals());
 
     }
 
     void suspendSubscription(LocalDate startDate){
         this.status = SubscriptionStatus.SUSPENDED;
-        renewsOn = startDate.plusDays(this.subscription.getMaxDaysOnHold());
+        renewsOn = startDate.plusDays(this.subscriptionTemplate.getMaxDaysOnHold());
 
     }
 

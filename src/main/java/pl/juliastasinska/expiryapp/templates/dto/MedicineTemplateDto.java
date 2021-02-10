@@ -1,7 +1,13 @@
 package pl.juliastasinska.expiryapp.templates.dto;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "medicine_templates")
 public class MedicineTemplateDto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int medicineId;
     private String name;
     private int daysStored;
