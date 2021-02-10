@@ -1,0 +1,458 @@
+{
+	"info": {
+		"_postman_id": "6e5fa4fc-6fe5-4101-9e52-00649382d2f4",
+		"name": "Expiry app - items",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get device",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/items/devices",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get device with description",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/items/devices?description&name=coffee",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"devices"
+					],
+					"query": [
+						{
+							"key": "description",
+							"value": null
+						},
+						{
+							"key": "name",
+							"value": "coffee"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get device to clean",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/items/devices?clean&days=62",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"devices"
+					],
+					"query": [
+						{
+							"key": "clean",
+							"value": null
+						},
+						{
+							"key": "days",
+							"value": "62"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post new device",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Espresso coffeemaker Saeco\",\r\n    \"buyingDate\" : \"2021-02-11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/items/devices?deviceTemplateId=33",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"devices"
+					],
+					"query": [
+						{
+							"key": "deviceTemplateId",
+							"value": "33"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clean a device",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"deviceId\": 2,\r\n    \"name\": \"Electric toothbrush\",\r\n    \"daysBetweenCleanings\": 7,\r\n    \"daysBetweenPartExchange\": 90 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/items/devices/33?clean",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"devices",
+						"33"
+					],
+					"query": [
+						{
+							"key": "clean",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "service a device",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"deviceId\": 2,\r\n    \"name\": \"Electric toothbrush\",\r\n    \"daysBetweenCleanings\": 7,\r\n    \"daysBetweenPartExchange\": 90 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/items/devices/65?service",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"devices",
+						"65"
+					],
+					"query": [
+						{
+							"key": "service",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete device",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/items/devices/33",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"devices",
+						"33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get food",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/items/food",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"food"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post new food",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Chickpeas Sante\",\r\n    \"expiryDate\" : \"2023-10-08\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/items/food?foodTemplateId=65",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"food"
+					],
+					"query": [
+						{
+							"key": "foodTemplateId",
+							"value": "65"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cook food",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"foodId\": 2,\r\n    \"name\": \"Hard boiled egg\",\r\n    \"daysStoredRoomTemperature\": 0,\r\n    \"daysStoredInFridge\": 8,\r\n    \"daysStoredInFreezer\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/items/food/161?cook",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"food",
+						"161"
+					],
+					"query": [
+						{
+							"key": "cook",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "freeze food",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"foodId\": 2,\r\n    \"name\": \"Hard boiled egg\",\r\n    \"daysStoredRoomTemperature\": 0,\r\n    \"daysStoredInFridge\": 8,\r\n    \"daysStoredInFreezer\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/items/food/161?freeze",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"food",
+						"161"
+					],
+					"query": [
+						{
+							"key": "freeze",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "thaw food",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"foodId\": 2,\r\n    \"name\": \"Hard boiled egg\",\r\n    \"daysStoredRoomTemperature\": 0,\r\n    \"daysStoredInFridge\": 8,\r\n    \"daysStoredInFreezer\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/items/food/161?thaw",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"food",
+						"161"
+					],
+					"query": [
+						{
+							"key": "thaw",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "open food",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"foodId\": 2,\r\n    \"name\": \"Hard boiled egg\",\r\n    \"daysStoredRoomTemperature\": 0,\r\n    \"daysStoredInFridge\": 8,\r\n    \"daysStoredInFreezer\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/items/food/129?open",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"food",
+						"129"
+					],
+					"query": [
+						{
+							"key": "open",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eat food",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"foodId\": 2,\r\n    \"name\": \"Hard boiled egg\",\r\n    \"daysStoredRoomTemperature\": 0,\r\n    \"daysStoredInFridge\": 8,\r\n    \"daysStoredInFreezer\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/items/food/129?eat",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"food",
+						"129"
+					],
+					"query": [
+						{
+							"key": "eat",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete food",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/items/food/130",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"items",
+						"food",
+						"130"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

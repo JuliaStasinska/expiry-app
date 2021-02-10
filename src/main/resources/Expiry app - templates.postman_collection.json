@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "09dd204a-5a44-447e-b855-33009102de9a",
+		"name": "Expiry app - templates",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get device templates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/templates/devices",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"templates",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post new device template",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Coffeemaker\",\r\n    \"daysBetweenCleanings\": 60,\r\n    \"daysBetweenPartExchange\": 0 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/templates/devices",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"templates",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update of a device template",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"deviceId\": 2,\r\n    \"name\": \"Coffeemaker\",\r\n    \"daysBetweenCleanings\": 40,\r\n    \"daysBetweenPartExchange\": 2 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/templates/devices/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"templates",
+						"devices",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get food templates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/templates/food",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"templates",
+						"food"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post new food template",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Chickpeas\",\r\n    \"category\": \"LEGUME\",\r\n    \"daysStoredRoomTemperature\": 0,\r\n    \"daysStoredInFridge\": 4,\r\n    \"daysStoredInFreezer\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/templates/food",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"templates",
+						"food"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update of a food template",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"foodId\": 33,\r\n    \"name\": \"Egg\",\r\n    \"category\": \"DAIRY\",\r\n    \"daysStoredRoomTemperature\": 0,\r\n    \"daysStoredInFridge\": 7,\r\n    \"daysStoredInFreezer\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/templates/food/33",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"templates",
+						"food",
+						"33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get medicine templates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/templates/medicines",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"templates",
+						"medicines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post new medicine template",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Nasivin\",\r\n    \"daysStored\": 365\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/templates/medicines",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"templates",
+						"medicines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get subscription templates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/templates/subscriptions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"templates",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post new subscription template",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Audible \",\r\n    \"daysTrialPeriod\": 30,\r\n    \"daysBetweenRenewals\": 30,\r\n    \"maxDaysOnHold\": 90 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/templates/subscriptions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"templates",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
