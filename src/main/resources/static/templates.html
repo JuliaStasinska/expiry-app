@@ -7,7 +7,7 @@
     <title>Expiry App: templates</title>
 </head>
 <body>
-<main style="width: 50%; margin: 0 auto;">
+<main style="width: 50%; margin: 0 auto;" id="main">
     <div class="header" style="text-align: center;">
         <h2>To add a template please select its type or </h2>
         <p>
@@ -18,14 +18,15 @@
         <form class="pure form pure-form-aligned">
             <div class="pure-control-group">
             <label for="multi-state">Type of template:</label>
-                <select id="multi-state" class="pure-input-1-2">
-                    <option>Device</option>
-                    <option>Food</option>
+                <select name="templateType" class="pure-input-1-2" onclick="selectType()" id="type">
+                    <option hidden selected></option>
+                    <option value="devices">Device</option>
+                    <option value="food">Food</option>
                 </select>
             </div>
         </form>
     
-    <fieldset style="display: none;">
+    <fieldset id="device-template" style="display: none;">
         <legend>New device template</legend>
         
         <form class="pure form pure-form-aligned">
@@ -35,11 +36,11 @@
             </div>
             <div class="pure-control-group">
             <label>How often does it require cleaning?</label>
-            <input type="number" name="daysBetweenCleanings" />
+            <input type="number" name="daysBetweenCleanings" /><span style="margin-left:10px;">days</span>
             </div>
             <div class="pure-control-group">
             <label>How often does it require part exchange?</label>
-            <input type="number" name="daysBetweenPartExchange" />
+            <input type="number" name="daysBetweenPartExchange" /><span style="margin-left:10px;">days</span>
             </div>
             <div class="pure-controls">
             <button class="pure-button pure-button-primary pure-u-1-3" type="submit">Add</button>
@@ -47,7 +48,7 @@
         </form>
     </fieldset>
 
-    <fieldset style="display: initial;">
+    <fieldset id="food-template" style="display: none;">
         <legend>New food template</legend>
         
         <form class="pure form pure-form-aligned">
@@ -56,18 +57,9 @@
             <input type="text" name="name"/>
             </div>
             <div class="pure-control-group">
-                <label for="multi-state">Category</label>
-                <select id="multi-state" class="pure-input-1-2">
-                    <option>GENERIC</option>
-                    <option>DAIRY</option>
-                    <option>EGG</option>
-                    <option>MEAT</option>
-                    <option>FISH</option>
-                    <option>GRAIN</option>
-                    <option>NUT</option>
-                    <option>LEGUME</option>
-                    <option>DRESSING</option>
-                    <option>PRESERVE</option> 
+                <label for="category">Category</label>
+                <select id="category" class="pure-input-1-2">
+                    <option hidden selected>select</option>
                 </select>
             </div>
             <div class="pure-control-group">
@@ -76,11 +68,11 @@
             </div>
             <div class="pure-control-group">
             <label>How long can it be stored in the fridge?</label>
-            <input type="number" name="daysStoredInFridge" />
+            <input type="number" name="daysStoredInFridge" /><span style="margin-left:10px;">days</span>
             </div>
             <div class="pure-control-group">
                 <label>How long can it be stored in the freezer?</label>
-                <input type="number" name="daysStoredInFreezer" />
+                <input type="number" name="daysStoredInFreezer" /><span style="margin-left:10px;">days</span>
                 </div>
             <div class="pure-controls">
             <button class="pure-button pure-button-primary pure-u-1-3" type="submit">Add</button>
@@ -89,5 +81,47 @@
     </fieldset>
 
 </main>
+<script>
+
+    function selectType(){
+    var sel=document.getElementById("type");
+        if(sel.value == "devices"){
+            document.getElementById("device-template").style.display='block';
+            document.getElementById("food-template").style.display='none';
+        }
+        else if(sel.value =="food"){
+            document.getElementById("device-template").style.display='none';
+            document.getElementById("food-template").style.display='block';
+            dropdownCreation();
+        }
+        
+    }
+
+    function dropdownCreation(){
+        var url = new URL('http://localhost:8080/templates/food?categories');
+        let dropdown = document.getElementById("category");
+        dropdown.length = 0;
+        var defaultOption = document.createElement('option');
+        defaultOption.text = 'select';
+        dropdown.add(defaultOption);
+        dropdown.selectedIndex = 0;
+        
+        fetch(url, {method: "GET"})
+        .then(
+           function(response) {                
+                response.json().then(function(data) {  
+                    let option;
+                    for (let i = 0; i < data.length; i++) {
+                        option = document.createElement('option');                            
+                        option.text = data[i];
+                        option.value = data[i];
+                        dropdown.add(option);
+                    }       
+                });
+            }
+        );
+    }
+
+</script>
 </body>
 </html>
