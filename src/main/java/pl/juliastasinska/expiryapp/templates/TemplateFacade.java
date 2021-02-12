@@ -6,6 +6,8 @@ import pl.juliastasinska.expiryapp.templates.dto.FoodTemplateDto;
 import pl.juliastasinska.expiryapp.templates.dto.MedicineTemplateDto;
 import pl.juliastasinska.expiryapp.templates.dto.SubscriptionTemplateDto;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,6 +37,13 @@ public class TemplateFacade {
     List<FoodTemplateDto> listFood(){
         return FTRepo.findAll().stream()
                 .map(FoodTemplate::toDto)
+                .collect(toList());
+    }
+
+    List<String> listFoodCategories(){
+        return Arrays.stream(FoodCategory.values())
+                .map(FoodCategory::toString)
+                .sorted()
                 .collect(toList());
     }
 

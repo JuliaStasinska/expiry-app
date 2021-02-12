@@ -32,6 +32,11 @@ class TemplateController {
         return templateFacade.listFood();
     }
 
+    @GetMapping(path="/food",params="categories")
+    List<String> listFoodCategories(){
+        return templateFacade.listFoodCategories();
+    }
+
     @GetMapping("/medicines")
     List<MedicineTemplateDto> listMedicines(){
         return templateFacade.listMedicines();
