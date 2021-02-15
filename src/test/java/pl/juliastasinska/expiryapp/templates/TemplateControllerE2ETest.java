@@ -35,10 +35,6 @@ class TemplateControllerE2ETest {
     @Autowired
     SubscriptionTemplateRepository stRepo;
 
-    TemplateControllerE2ETest(){
-        new Warmup(dtRepo,ftRepo,mtRepo,stRepo);
-    }
-
     @Test
     void httpGet_returnsAllDeviceTemplates(){
         //given
